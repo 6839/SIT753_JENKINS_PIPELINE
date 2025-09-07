@@ -17,7 +17,7 @@ pipeline {
                         emailext (
 							subject: "Tests Passed",
 							body: "All tests passed successfully.",
-                            mail to: "zhijianmin8@gmail.com",
+                            to: "zhijianmin8@gmail.com",
                             attachLog: true,
                             mimeType: 'text/html'
                         )
@@ -28,7 +28,7 @@ pipeline {
                         emailext (
 							subject: "Tests Failed",
                             body: "Some tests failed. See attached logs.",
-							mail to: "zhijianmin8@gmail.com",
+							to: "zhijianmin8@gmail.com",
                             attachLog: true,
                             mimeType: 'text/html'
                         )
