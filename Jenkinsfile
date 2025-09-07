@@ -37,6 +37,8 @@ pipeline {
                 echo "Deploying the application to a production server(AWS EC2 instance)"
             }
 
+
+			
 			
         }
     }
