@@ -41,6 +41,31 @@ pipeline {
             steps {
                 echo "Performing security scan on the code via OWASP ZAP..."
             }
+			
+            post {
+                success {
+                    script {
+                        emailext (
+							subject: "Security Scan Passed",
+							body: "All Security Scan passed successfully.",
+                            to: "zhijianmin8@gmail.com",
+                            attachLog: true,
+                            mimeType: 'text/html'
+                        )
+                    }
+                }
+                failure {
+                    script {
+                        emailext (
+							subject: "Security Scan Failed",
+                            body: "Some Security Scan failed. See attached logs.",
+							to: "zhijianmin8@gmail.com",
+                            attachLog: true,
+                            mimeType: 'text/html'
+                        )
+                    }
+                }
+            }
         }
     }
 }
