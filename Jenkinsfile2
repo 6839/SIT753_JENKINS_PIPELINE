@@ -10,32 +10,32 @@ pipeline {
             steps {
                 echo "Running tests via JUnit..."
             }
-			
-			post {
-				success {
-					script {
-					emailext (
-						to: 'zhijianmin8@gmail.com',
-						subject: 'Tests Passed',
-						body: 'All tests passed successfully.',
-						attachLog: true,
-						mimeType: 'text/html'
-					)
-					}
-				}
-				failure {
-					script {
-					emailext (
-						to: 'zhijianmin8@gmail.com',
-						subject: 'Tests Failed',
-						body: 'Some tests failed. See attached logs.',
-						attachLog: true,
-						mimeType: 'text/html'
-					)
-					}
-				}
-			}
-			
+            
+            post {
+                success {
+                    script {
+                        emailext (
+                            to: 'zhijianmin8@gmail.com',
+                            subject: 'Tests Passed',
+                            body: 'All tests passed successfully.',
+                            attachLog: true,
+                            mimeType: 'text/html'
+                        )
+                    }
+                }
+                failure {
+                    script {
+                        emailext (
+                            to: 'zhijianmin8@gmail.com',
+                            subject: 'Tests Failed',
+                            body: 'Some tests failed. See attached logs.',
+                            attachLog: true,
+                            mimeType: 'text/html'
+                        )
+                    }
+                }
+            }
+            
         }
         stage("Security Scan") {
             steps {
