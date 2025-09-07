@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+    stages {
+        stage("Build") {
+            steps {
+                echo "Building the code via Maven..."
+            }
+        }
+        stage("Unit and Integration Tests") {
+            steps {
+                echo "Running unit tests via JUnit..."
+				echo "Running integration tests via Cypress..."
+            }
+			
+			post {
+				success {
+					mail to: "zhijianmin8@gmail.com",
+					subject: "Unit and Integration Tests Success Status Email",
+					body: "Unit and Integration Tests were successful!",
+					attachLog: true
+				}
+				failure {
+					mail to: "zhijianmin8@gmail.com",
+					subject: "Unit and Integration Tests Failure Status Email",
+					body: "Unit and Integration Tests were failed!",
+					attachLog: true
+				}
+			}
+        }
+        stage("Code Analysis") {
+            steps {
+                echo "Analysing the code via SonarQube..."
+            }
+        }
+        stage("Security Scan") {
+            steps {
+                echo "Performing security scan on the code via OWASP ZAP..."
+            }
+        }
+        stage("Deploy to Staging") {
+            steps {
+                echo "Deploying the application to a staging server(AWS EC2 instance)"
+            }
+        }
+        stage("Integration Tests on Staging") {
+            steps {
+                echo "Running integration tests on the staging environment"
+            }
+        }
+        stage("Deploy to Production") {
+            steps {
+                echo "Deploying the application to a production server(AWS EC2 instance)"
+            }
+        }
+    }
+}
