@@ -13,18 +13,29 @@ pipeline {
 			
 			post {
 				success {
-					mail to: "zhijianmin8@gmail.com",
-					subject: "Tests Success Status Email",
-					body: "Tests were successful!",
-					attachLog: true
+					script {
+					emailext (
+						to: 'zhijianmin8@gmail.com',
+						subject: 'Tests Passed',
+						body: 'All tests passed successfully.',
+						attachLog: true,
+						mimeType: 'text/html'
+					)
+					}
 				}
 				failure {
-					mail to: "zhijianmin8@gmail.com",
-					subject: "Tests Failure Status Email",
-					body: "Tests were failed!",
-					attachLog: true
+					script {
+					emailext (
+						to: 'zhijianmin8@gmail.com',
+						subject: 'Tests Failed',
+						body: 'Some tests failed. See attached logs.',
+						attachLog: true,
+						mimeType: 'text/html'
+					)
+					}
 				}
 			}
+			
         }
         stage("Security Scan") {
             steps {
